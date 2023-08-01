@@ -4,7 +4,7 @@ on:
     issues:
         types: [ opened ]
     pull_request:
-        branches: [develop]
+        branches: [ develop ]
 
 permissions:
     contents: read
@@ -21,8 +21,44 @@ jobs:
             -   name: View PR author
                 run: echo "This PR is opened by ${{ github.actor }} ."
 
-            -   name: add label
+            -   name: add label jinsu
                 uses: actions-ecosystem/action-add-labels@v1
                 if: ${{ startsWith(github.actor, 'jinsu4755') }}
                 with:
                     labels: 진수🦂
+
+            -   name: add label 2zerozu
+                uses: actions-ecosystem/action-add-labels@v1
+                if: ${{ startsWith(github.actor, '2zerozu') }}
+                with:
+                    labels: 영주🐼
+
+            -   name: add label jiyeoon00
+                uses: actions-ecosystem/action-add-labels@v1
+                if: ${{ startsWith(github.actor, 'jiyeoon00') }}
+                with:
+                    labels: 지연🐰
+
+            -   name: add label feature
+                uses: actions-ecosystem/action-add-labels@v1
+                if: ${{ startsWith(github.event.comment.body, 'feat') }}
+                with:
+                    labels: Feature
+
+            -   name: add label bug
+                uses: actions-ecosystem/action-add-labels@v1
+                if: ${{ startsWith(github.event.comment.body, 'fix') }}
+                with:
+                    labels: Bug
+
+            -   name: add label chore
+                uses: actions-ecosystem/action-add-labels@v1
+                if: ${{ startsWith(github.event.comment.body, 'chore') }}
+                with:
+                    labels: Chore
+
+            -   name: add label docs
+                uses: actions-ecosystem/action-add-labels@v1
+                if: ${{ startsWith(github.event.comment.body, 'docs') }}
+                with:
+                    labels: Document
