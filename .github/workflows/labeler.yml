@@ -19,5 +19,4 @@ jobs:
 
         steps:
             -   name: View PR author
-                if: ${{ github.event.issue.pull_request }}
                 run: echo "This PR is opened by ${{ github.event.issue.user.login }} ."
