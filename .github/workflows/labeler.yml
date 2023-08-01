@@ -41,24 +41,24 @@ jobs:
 
             -   name: add label feature
                 uses: actions-ecosystem/action-add-labels@v1
-                if: ${{ startsWith(github.event.comment.body, 'feat') }}
+                if: ${{ startsWith(github.event.head_commit.message, 'feat') }}
                 with:
                     labels: Feature
 
             -   name: add label bug
                 uses: actions-ecosystem/action-add-labels@v1
-                if: ${{ startsWith(github.event.comment.body, 'fix') }}
+                if: ${{ startsWith(github.event.head_commit.message, 'fix') }}
                 with:
                     labels: Bug
 
             -   name: add label chore
                 uses: actions-ecosystem/action-add-labels@v1
-                if: ${{ startsWith(github.event.comment.body, 'chore') }}
+                if: ${{ startsWith(github.event.head_commit.message, 'chore') }}
                 with:
                     labels: Chore
 
             -   name: add label docs
                 uses: actions-ecosystem/action-add-labels@v1
-                if: ${{ startsWith(github.event.comment.body, 'docs') }}
+                if: ${{ startsWith(github.event.head_commit.message, 'docs') }}
                 with:
                     labels: Document
