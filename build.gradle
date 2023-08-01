@@ -21,6 +21,12 @@ repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:2022.0.3"
+    }
+}
+
 
 ktlint {
     debug = true
@@ -44,10 +50,20 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    //JWT
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
     runtimeOnly 'com.mysql:mysql-connector-j'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 }
