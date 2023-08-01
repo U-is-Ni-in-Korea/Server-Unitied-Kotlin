@@ -13,29 +13,10 @@ permissions:
     pull-requests: write
 
 jobs:
-    label-jinsu:
-        runs-on: ubuntu-latest
-        steps:
-            -   name: add label jinsu
-                uses: actions-ecosystem/action-add-labels@v1
-                if: ${{ startsWith(github.actor, 'jinsu4755') }}
-                with:
-                    labels: 진수🦂
+    labeler:
 
-    label-2zerozu:
         runs-on: ubuntu-latest
-        steps:
-            -   name: add label 2zerozu
-                uses: actions-ecosystem/action-add-labels@v1
-                if: ${{ startsWith(github.actor, '2zerozu') }}
-                with:
-                    labels: 영주🐼
 
-    label-jiyeoon00:
-        runs-on: ubuntu-latest
         steps:
-            -   name: add label jiyeoon00
-                uses: actions-ecosystem/action-add-labels@v1
-                if: ${{ startsWith(github.actor, 'jiyeoon00') }}
-                with:
-                    labels: 지연🐰
+            -   name: View PR author
+                run: echo "This PR is opened by ${{ github.actor_id }} ."
