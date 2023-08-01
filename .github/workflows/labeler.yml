@@ -3,9 +3,7 @@ name: Uni Issue & PR Labeler
 on:
     issues:
         types: [ opened ]
-    push:
     pull_request:
-        branches: [ develop ]
 
 permissions:
     contents: read
