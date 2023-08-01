@@ -72,3 +72,12 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+copy {
+    from('./uni-kotlin-config')
+    include('src/**/*.yml')
+    into('.')
+    eachFile { file ->
+        println "> copy file: ${file.sourcePath}"
+    }
+}
