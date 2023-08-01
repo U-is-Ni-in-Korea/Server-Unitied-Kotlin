@@ -20,3 +20,9 @@ jobs:
         steps:
             -   name: View PR author
                 run: echo "This PR is opened by ${{ github.actor }} ."
+
+            -   name: add label
+                uses: actions-ecosystem/action-add-labels@v1
+                if: ${{ startsWith(github.actor, 'jinsu4755') }}
+                with:
+                    labels: 진수🦂
