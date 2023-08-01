@@ -4,7 +4,7 @@ on:
     issues:
         types: [ opened ]
     pull_request:
-        types: [ opened ]
+        branches: [ develop ]
 
 permissions:
     contents: read
@@ -16,6 +16,9 @@ jobs:
     label-jinsu:
         runs-on: ubuntu-latest
         steps:
+            -   name: Print Title of PR
+                run: echo The Title of your PR is ${{ github.event.pull_request.title }}
+
             -   name: add label jinsu
                 uses: actions-ecosystem/action-add-labels@v1
                 if: ${{ startsWith(github.actor, 'jinsu4755') }}
