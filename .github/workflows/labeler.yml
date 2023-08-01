@@ -1,8 +1,10 @@
 name: Uni Issue & PR Labeler
 
 on:
+    issues:
+        types: [ opened ]
     pull_request:
-        types: [opened]
+        types: [ opened ]
 
 permissions:
     contents: read
@@ -16,8 +18,12 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - name: Check Labels
-              id: labeler
-              uses: jimschubert/labeler-action@v1
-              with:
-                  GITHUB_TOKEN: ${{secrets.CI_TOKEN}}
+            -   name: View PR author
+                if: ${{ github.event.issue.pull_request }}
+                run: echo "This PR is opened by ${{ github.event.issue.user.login }} ."
+
+            -   name: Check Labels
+                id: labeler
+                uses: jimschubert/labeler-action@v1
+                with:
+                    GITHUB_TOKEN: ${{secrets.CI_TOKEN}}
