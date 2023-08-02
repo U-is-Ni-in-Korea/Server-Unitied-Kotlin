@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     id 'org.springframework.boot' version '3.1.2'
     id 'io.spring.dependency-management' version '1.1.2'
@@ -27,6 +25,9 @@ dependencyManagement {
     }
 }
 
+kotlin {
+    jvmToolchain(17)
+}
 
 ktlint {
     debug = true
@@ -68,13 +69,15 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 }
 
-tasks.withType(KotlinCompile).configureEach {
-    compilerOptions {
-        freeCompilerArgs += '-Xjsr305=strict'
-        jvmTarget = '17'
-    }
-}
-
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+copy {
+    from('./uni-kotlin-config')
+    include('src/**/*.yml')
+    into('.')
+    eachFile { file ->
+        println "> copy file: ${file.sourcePath}"
+    }
 }
