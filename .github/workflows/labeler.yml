@@ -48,30 +48,30 @@ jobs:
         steps:
             - name: add label Bug
               uses: actions-ecosystem/action-add-labels@v1
-              if: ${{ startsWith(github.actor, 'Bug:') }}
+              if: ${{ startsWith(github.event.pull_request.title, 'Bug:') }}
               with:
                   labels: Bug
 
             - name: add label Chore
               uses: actions-ecosystem/action-add-labels@v1
-              if: ${{ startsWith(github.actor, 'Chore:') }}
+              if: ${{ startsWith(github.event.pull_request.title, 'Chore:') }}
               with:
                   labels: Chore
 
             - name: add label Document
               uses: actions-ecosystem/action-add-labels@v1
-              if: ${{ startsWith(github.actor, 'Docs:') }}
+              if: ${{ startsWith(github.event.pull_request.title, 'Docs:') }}
               with:
                   labels: Document
 
             - name: add label Feature
               uses: actions-ecosystem/action-add-labels@v1
-              if: ${{ startsWith(github.actor, 'Feat:') }}
+              if: ${{ startsWith(github.event.pull_request.title, 'Feat:') }}
               with:
                   labels: Feature
 
             - name: add label Hotfix
               uses: actions-ecosystem/action-add-labels@v1
-              if: ${{ startsWith(github.actor, 'Hotfix:') }}
+              if: ${{ startsWith(github.event.pull_request.title, 'Hotfix:') }}
               with:
                   labels: Hotfix
