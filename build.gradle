@@ -2,14 +2,35 @@ plugins {
     alias libs.plugins.spring.boot
     alias libs.plugins.spring.dependency.manage
     alias libs.plugins.kotlin.jvm
-    alias libs.plugins.kotlin.plugin.spring
-    alias libs.plugins.kotlin.plugin.jpa
-    alias libs.plugins.ktlint
+    alias libs.plugins.kotlin.plugin.spring apply false
+    alias libs.plugins.kotlin.plugin.jpa apply false
+    alias libs.plugins.ktlint apply false
 }
 
-group = 'uni.universe'
-version = '0.0.1-SNAPSHOT'
+/*group = 'uni.universe'
+version = '0.0.1-SNAPSHOT'*/
+version = libs.versions.service
 
+java {
+    sourceCompatibility = '17'
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+repositories {
+    mavenCentral()
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+/*
 java {
     sourceCompatibility = '17'
 }
@@ -28,11 +49,12 @@ dependencyManagement {
 kotlin {
     jvmToolchain(17)
 }
+*/
 
 subprojects {
 }
 
-ktlint {
+/*ktlint {
     debug = true
     verbose = true
     outputToConsole = true
@@ -47,9 +69,9 @@ allOpen {
 
 noArg {
     annotation("jakarta.persistence.Entity")
-}
+}*/
 
-dependencies {
+/*dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
@@ -70,8 +92,8 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
-}
+}*/
 
-tasks.named('test') {
+/*tasks.named('test') {
     useJUnitPlatform()
-}
+}*/
