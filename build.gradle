@@ -1,10 +1,10 @@
 plugins {
-    id 'org.springframework.boot' version '3.1.2'
-    id 'io.spring.dependency-management' version '1.1.2'
-    id 'org.jetbrains.kotlin.jvm' version '1.8.22'
-    id 'org.jetbrains.kotlin.plugin.spring' version '1.8.22'
-    id 'org.jetbrains.kotlin.plugin.jpa' version '1.8.22'
-    id "org.jlleitschuh.gradle.ktlint" version "11.0.0" apply true
+    alias libs.plugins.spring.boot
+    alias libs.plugins.spring.dependency.manage
+    alias libs.plugins.kotlin.jvm
+    alias libs.plugins.kotlin.plugin.spring
+    alias libs.plugins.kotlin.plugin.jpa
+    alias libs.plugins.ktlint
 }
 
 group = 'uni.universe'
@@ -27,6 +27,9 @@ dependencyManagement {
 
 kotlin {
     jvmToolchain(17)
+}
+
+subprojects {
 }
 
 ktlint {
@@ -71,13 +74,4 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-copy {
-    from('./uni-kotlin-config')
-    include('src/**/*.yml')
-    into('.')
-    eachFile { file ->
-        println "> copy file: ${file.sourcePath}"
-    }
 }

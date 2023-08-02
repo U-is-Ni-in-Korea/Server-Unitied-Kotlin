@@ -1,12 +1,13 @@
-package uni.universe.sparkle
+package uni.universe.sparkle.api
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class SparkleApplicationTests {
+class ApiApplicationTests {
 
-    @Test
-    fun contextLoads() {
-    }
+	@Test
+	fun contextLoads() {
+	}
+
 }

@@ -1,11 +1,11 @@
-package uni.universe.sparkle
+package uni.universe.sparkle.api
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class SparkleApplication
+class ApiApplication
 
 fun main(args: Array<String>) {
-    runApplication<SparkleApplication>(*args)
+	runApplication<ApiApplication>(*args)
 }
