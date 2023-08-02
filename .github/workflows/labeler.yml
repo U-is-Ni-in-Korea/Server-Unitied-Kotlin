@@ -42,3 +42,36 @@ jobs:
                 if: ${{ startsWith(github.actor, 'jiyeoon00') }}
                 with:
                     labels: 지연🐰
+
+    label-tag:
+        runs-on: ubuntu-latest
+        steps:
+            - name: add label Bug
+              uses: actions-ecosystem/action-add-labels@v1
+              if: ${{ startsWith(github.actor, 'Bug:') }}
+              with:
+                  labels: Bug
+
+            - name: add label Chore
+              uses: actions-ecosystem/action-add-labels@v1
+              if: ${{ startsWith(github.actor, 'Chore:') }}
+              with:
+                  labels: Chore
+
+            - name: add label Document
+              uses: actions-ecosystem/action-add-labels@v1
+              if: ${{ startsWith(github.actor, 'Docs:') }}
+              with:
+                  labels: Document
+
+            - name: add label Feature
+              uses: actions-ecosystem/action-add-labels@v1
+              if: ${{ startsWith(github.actor, 'Feat:') }}
+              with:
+                  labels: Feature
+
+            - name: add label Hotfix
+              uses: actions-ecosystem/action-add-labels@v1
+              if: ${{ startsWith(github.actor, 'Hotfix:') }}
+              with:
+                  labels: Hotfix
