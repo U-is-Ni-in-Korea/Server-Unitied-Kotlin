@@ -1,0 +1,55 @@
+plugins {
+    alias libs.plugins.spring.boot
+    alias libs.plugins.spring.dependency.manage
+    alias libs.plugins.kotlin.jvm
+    alias libs.plugins.kotlin.plugin.spring
+}
+
+group = 'universe.spakle'
+version = libs.versions.service.get()
+
+java {
+    sourceCompatibility = '17'
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:2022.0.3"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+copy {
+    from('./uni-kotlin-config')
+    include('src/**/*.yml')
+    into('.')
+    eachFile { file ->
+        println "> copy file: ${file.sourcePath}"
+    }
+}
