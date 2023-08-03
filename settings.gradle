@@ -2,3 +2,5 @@ rootProject.name = 'sparkle'
 
 include("module-api")
 include("module-core-domain")
+include("module-service")
+include("module-data")

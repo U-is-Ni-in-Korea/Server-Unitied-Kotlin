@@ -31,6 +31,8 @@ noArg {
 }
 
 dependencies {
+    implementation project(':module-service')
+    implementation project(':module-core-domain')
     implementation libs.spring.boot.starter.jpa
     implementation libs.kotlin.reflect
 
