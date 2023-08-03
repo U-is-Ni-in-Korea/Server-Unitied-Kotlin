@@ -1,4 +1,46 @@
 plugins {
+    alias libs.plugins.spring.dependency.manage
+    alias libs.plugins.kotlin.jvm
+    alias libs.plugins.ktlint
+}
+
+version = libs.versions.service.get()
+
+repositories {
+    mavenCentral()
+}
+
+subprojects {
+    apply plugin: libs.plugins.spring.dependency.manage.get().pluginId
+    apply plugin: libs.plugins.kotlin.jvm.get().pluginId
+    apply plugin: libs.plugins.ktlint.get().pluginId
+
+    java {
+        sourceCompatibility = '17'
+    }
+
+    kotlin {
+        jvmToolchain(17)
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:2022.0.3"
+        }
+    }
+
+    ktlint {
+        debug = true
+        verbose = true
+        outputToConsole = true
+    }
+
+}
+/*plugins {
     alias libs.plugins.spring.boot
     alias libs.plugins.spring.dependency.manage
     alias libs.plugins.kotlin.jvm
@@ -7,8 +49,8 @@ plugins {
     alias libs.plugins.ktlint apply false
 }
 
-/*group = 'uni.universe'
-version = '0.0.1-SNAPSHOT'*/
+*//*group = 'uni.universe'
+version = '0.0.1-SNAPSHOT'*//*
 version = libs.versions.service
 
 java {
@@ -29,7 +71,7 @@ bootJar {
 
 jar {
     enabled = true
-}
+}*/
 /*
 java {
     sourceCompatibility = '17'
@@ -50,9 +92,6 @@ kotlin {
     jvmToolchain(17)
 }
 */
-
-subprojects {
-}
 
 /*ktlint {
     debug = true
