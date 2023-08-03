@@ -4,6 +4,7 @@ plugins {
     alias libs.plugins.ktlint
 }
 
+
 version = libs.versions.service.get()
 
 repositories {
@@ -11,27 +12,8 @@ repositories {
 }
 
 subprojects {
-    apply plugin: libs.plugins.spring.dependency.manage.get().pluginId
-    apply plugin: libs.plugins.kotlin.jvm.get().pluginId
     apply plugin: libs.plugins.ktlint.get().pluginId
 
-    java {
-        sourceCompatibility = '17'
-    }
-
-    kotlin {
-        jvmToolchain(17)
-    }
-
-    repositories {
-        mavenCentral()
-    }
-
-    dependencyManagement {
-        imports {
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:2022.0.3"
-        }
-    }
 
     ktlint {
         debug = true

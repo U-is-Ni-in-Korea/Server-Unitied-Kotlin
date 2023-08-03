@@ -7,11 +7,14 @@ jjwt = "0.11.5"
 kotlin = "1.8.22"
 ktlint = "11.0.0"
 
-service="0.0.1-SNAPSHOT"
+service = "0.0.1-SNAPSHOT"
 
 # java
 
 # kotlin
+
+# test
+junit5 = "5.10.0"
 
 [libraries]
 
@@ -32,7 +35,7 @@ jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin"
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 
 db-postgresql = { module = "org.postgresql:postgresql" }
-db-mysql = {module="com.mysql:mysql-connector-j"}
+db-mysql = { module = "com.mysql:mysql-connector-j" }
 
 jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }
 jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
@@ -42,6 +45,8 @@ springdoc = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", vers
 
 test-spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter-test" }
 test-spring-security = { module = "org.springframework.security:spring-security-test" }
+test-junit5-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
+test-junit5-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5" }
 
 [plugins]
 # common
@@ -55,3 +60,5 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 # java
 
 # kotlin
+
+[bundles]

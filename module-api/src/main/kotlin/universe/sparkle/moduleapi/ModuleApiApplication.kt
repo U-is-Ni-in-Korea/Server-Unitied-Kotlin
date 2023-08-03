@@ -1,4 +1,4 @@
-package universe.spakle.moduleapi
+package universe.sparkle.moduleapi
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

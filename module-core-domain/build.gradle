@@ -1,0 +1,28 @@
+plugins {
+    alias libs.plugins.kotlin.jvm
+}
+
+group = 'universe.sparkle'
+version = libs.versions.service.get()
+
+java {
+    sourceCompatibility = '17'
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation libs.kotlin.reflect
+    testImplementation libs.test.junit5.api
+    testRuntimeOnly libs.test.junit5.engine
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
