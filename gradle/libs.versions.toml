@@ -1,0 +1,64 @@
+[versions]
+# common
+spring-boot = "3.1.2"
+spring-dependency-manage = "1.1.2"
+springdoc = "2.1.0"
+jjwt = "0.11.5"
+kotlin = "1.8.22"
+ktlint = "11.0.0"
+
+service = "0.0.1-SNAPSHOT"
+
+# java
+
+# kotlin
+
+# test
+junit5 = "5.10.0"
+
+[libraries]
+
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
+spring-boot-starter-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-boot-starter-data-redis = { module = "org.springframework.boot:spring-boot-starter-data-redis" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+
+spring-cloud-starter-openfeign = { module = "org.springframework.cloud:spring-cloud-starter-openfeign" }
+
+spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
+
+lombok = { module = "org.projectlombok:lombok" }
+
+jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
+
+db-postgresql = { module = "org.postgresql:postgresql" }
+db-mysql = { module = "com.mysql:mysql-connector-j" }
+
+jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }
+jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
+jjwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jjwt" }
+
+springdoc = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
+
+test-spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter-test" }
+test-spring-security = { module = "org.springframework.security:spring-security-test" }
+test-junit5-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
+test-junit5-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5" }
+
+[plugins]
+# common
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-manage = { id = "io.spring.dependency-management", version.ref = "spring-dependency-manage" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-plugin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+kotlin-plugin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+
+# java
+
+# kotlin
+
+[bundles]
