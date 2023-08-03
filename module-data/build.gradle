@@ -1,0 +1,53 @@
+plugins {
+    alias libs.plugins.spring.boot
+    alias libs.plugins.spring.dependency.manage
+    alias libs.plugins.kotlin.jvm
+    alias libs.plugins.kotlin.plugin.spring
+    alias libs.plugins.kotlin.plugin.jpa
+}
+
+version = libs.versions.service.get()
+
+java {
+    sourceCompatibility = '17'
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+repositories {
+    mavenCentral()
+}
+
+allOpen {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.MappedSuperclass")
+    annotation("jakarta.persistence.Embeddable")
+}
+
+noArg {
+    annotation("jakarta.persistence.Entity")
+}
+
+dependencies {
+    implementation libs.spring.boot.starter.jpa
+    implementation libs.kotlin.reflect
+
+    runtimeOnly libs.db.mysql
+
+    testImplementation libs.test.spring.boot.starter
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+copy {
+    from('../uni-kotlin-config')
+    include('src/**/*.yml')
+    into('.')
+    eachFile { file ->
+        println "> copy file: ${file.sourcePath}"
+    }
+}
