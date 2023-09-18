@@ -1,0 +1,47 @@
+plugins {
+    alias libs.plugins.spring.boot
+    alias libs.plugins.spring.dependency.manage
+    alias libs.plugins.kotlin.jvm
+    alias libs.plugins.kotlin.plugin.spring
+}
+
+version = libs.versions.service.get()
+
+java {
+    sourceCompatibility = '17'
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation libs.test.spring.boot.starter
+    implementation libs.kotlin.reflect
+    testImplementation libs.test.spring.boot.starter
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+copy {
+    from('../uni-kotlin-config')
+    include('src/test/*.yml')
+    into('.')
+    eachFile { file ->
+        println "> copy file: ${file.sourcePath}"
+    }
+}
