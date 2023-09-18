@@ -1,8 +1,8 @@
 package universe.sparkle.domain.exception
 
 sealed class BadRequest(
-    override val code: Int,
-    override val message: String,
+    code: Int,
+    message: String,
 ) : BusinessException(code, message) {
     data class InvalidRequestMethod(
         override val message: String = "잘못된 방식의 요청입니다.",
