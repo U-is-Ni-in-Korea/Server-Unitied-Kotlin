@@ -7,7 +7,7 @@ import universe.sparkle.domain.model.User
 import java.util.stream.Collectors
 
 class UserDetail private constructor(
-    private val id: Long,
+    val id: Long,
     private val nickname: String?,
     private val snsAuthCode: String,
     private val authorities: List<GrantedAuthority> = listOf(SimpleGrantedAuthority("User")),
