@@ -37,7 +37,7 @@ class UserDetail private constructor(
                 id = 0,
                 nickname = user.nickname,
                 snsAuthCode = user.snsAuthCode,
-                image = user.image
+                image = user.image,
             )
         }
     }
