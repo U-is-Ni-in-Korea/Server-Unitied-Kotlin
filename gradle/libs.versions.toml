@@ -62,3 +62,8 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 # kotlin
 
 [bundles]
+jjwt = [
+    "jjwt-api",
+    "jjwt-impl",
+    "jjwt-jackson"
+]
