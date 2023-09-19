@@ -28,11 +28,17 @@ repositories {
 }
 
 dependencies {
+    implementation project(':module-domain')
     implementation libs.test.spring.boot.starter
     implementation libs.kotlin.reflect
-    testImplementation libs.test.spring.boot.starter
 
     implementation libs.bundles.jjwt
+
+    testImplementation(libs.test.spring.boot.starter) {
+        exclude module: 'mockito-core'
+    }
+    testImplementation libs.test.mockk
+
 }
 
 tasks.named('test') {
