@@ -3,12 +3,12 @@ package universe.sparkle.domain.model
 import universe.sparkle.domain.SnsType
 
 data class User(
-    val id: Long,
+    val id: Long? = null,
     val snsType: SnsType,
     val snsAuthCode: String,
-    val nickname: String?,
-    val image: String?,
-    val fcmToken: String?,
+    val nickname: String? = null,
+    val image: String? = null,
+    val fcmToken: String? = null,
 ) {
 
     init {

@@ -12,7 +12,7 @@ import universe.sparkle.infrastructure.persistence.entity.converter.SnsTypeAttri
 
 @Entity
 @Table(name = "user")
-internal class UserEntity(
+class UserEntity(
     id: Long? = null,
     snsType: SnsType,
     snsAuthCode: String,

@@ -46,8 +46,11 @@ dependencies {
 
     developmentOnly libs.spring.boot.devtools
 
+    implementation libs.db.mysql
+
     testImplementation libs.test.spring.boot.starter
     testImplementation libs.test.spring.security
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 allOpen {
