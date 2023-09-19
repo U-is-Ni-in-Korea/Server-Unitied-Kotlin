@@ -27,14 +27,14 @@ class AuthTokenUseCaseTest {
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this, relaxed = true, relaxUnitFun = true)
+        every { jwtConfig.getSecret() } answers { "secretSecretSecretSecretSecretSecretSecretSecretSecret" }
+        every { jwtConfig.getAccessExpiryPeriodDay() } answers { 1L }
+        every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
     }
 
     @Test
     fun 유저_정보가_주어지면_유저_정보를_통해_인증_토큰을_생성한다() {
         // given
-        every { jwtConfig.getSecret() } answers { "secretSecretSecretSecretSecretSecretSecretSecretSecret" }
-        every { jwtConfig.getAccessExpiryPeriodDay() } answers { 1L }
-        every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
         val user = User(
             id = 1,
             snsType = SnsType.APPLE,
