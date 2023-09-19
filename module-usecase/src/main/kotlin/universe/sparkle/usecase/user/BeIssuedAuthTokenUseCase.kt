@@ -11,7 +11,6 @@ import universe.sparkle.domain.model.AuthToken
 import universe.sparkle.domain.model.User
 import java.time.Instant
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.util.Date
 import javax.crypto.spec.SecretKeySpec
 
@@ -20,7 +19,6 @@ class BeIssuedAuthTokenUseCase @Autowired constructor(
     private val jwtConfig: JwtConfigContract,
 ) : BeIssuedAuthTokenInputBoundary {
 
-    private val zoneIdKST = ZoneId.of("Asia/Seoul")
     private val signatureAlgorithm = SignatureAlgorithm.HS256
 
     override fun invoke(
@@ -62,9 +60,9 @@ class BeIssuedAuthTokenUseCase @Autowired constructor(
         }
 
     private fun createExpiration(expiryPeriod: Long): Instant = LocalDateTime.now()
-        .atZone(zoneIdKST)
+        .atZone(JwtConfigContract.zoneIdKST)
         .toLocalDateTime()
         .plusDays(expiryPeriod)
-        .atZone(zoneIdKST)
+        .atZone(JwtConfigContract.zoneIdKST)
         .toInstant()
 }
