@@ -46,14 +46,11 @@ dependencies {
 
     implementation libs.db.mysql
 
-    implementation libs.bundles.jjwt
-
     implementation libs.springdoc
     developmentOnly libs.spring.boot.devtools
 
     testImplementation libs.test.spring.boot.starter
     testImplementation libs.test.spring.security
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 allOpen {

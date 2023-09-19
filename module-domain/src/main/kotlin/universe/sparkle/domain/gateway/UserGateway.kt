@@ -1,6 +1,5 @@
 package universe.sparkle.domain.gateway
 
-import universe.sparkle.domain.SnsType
 import universe.sparkle.domain.model.User
 
 interface UserGateway {

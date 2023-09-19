@@ -21,7 +21,6 @@ dependencies {
     implementation libs.kotlin.reflect
     testImplementation libs.test.junit5.api
     testRuntimeOnly libs.test.junit5.engine
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 tasks.named('test') {

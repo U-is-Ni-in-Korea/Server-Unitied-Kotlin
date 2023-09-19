@@ -31,7 +31,8 @@ dependencies {
     implementation libs.test.spring.boot.starter
     implementation libs.kotlin.reflect
     testImplementation libs.test.spring.boot.starter
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    implementation libs.bundles.jjwt
 }
 
 tasks.named('test') {

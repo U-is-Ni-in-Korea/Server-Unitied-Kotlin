@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import universe.sparkle.domain.SnsType
 import universe.sparkle.infrastructure.persistence.entity.UserEntity
-import universe.sparkle.infrastructure.persistence.repository.UserJpaRepository
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)

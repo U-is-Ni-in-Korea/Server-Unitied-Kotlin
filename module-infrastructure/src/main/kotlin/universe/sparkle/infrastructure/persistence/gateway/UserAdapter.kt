@@ -2,7 +2,6 @@ package universe.sparkle.infrastructure.persistence.gateway
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Component
 import org.springframework.stereotype.Repository
 import universe.sparkle.domain.exception.BadRequest
 import universe.sparkle.domain.gateway.UserGateway
