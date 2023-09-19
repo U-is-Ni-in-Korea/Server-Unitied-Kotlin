@@ -1,6 +1,6 @@
 package universe.sparkle.usecase.user
 
-class LoadUserUserCase {
+class LoadUserUseCase {
     operator fun invoke(userId: String) {
     }
 }
