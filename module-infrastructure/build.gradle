@@ -44,9 +44,12 @@ dependencies {
     implementation libs.jackson.kotlin
     implementation libs.kotlin.reflect
 
-    developmentOnly libs.spring.boot.devtools
-
     implementation libs.db.mysql
+
+    implementation libs.bundles.jjwt
+
+    implementation libs.springdoc
+    developmentOnly libs.spring.boot.devtools
 
     testImplementation libs.test.spring.boot.starter
     testImplementation libs.test.spring.security
