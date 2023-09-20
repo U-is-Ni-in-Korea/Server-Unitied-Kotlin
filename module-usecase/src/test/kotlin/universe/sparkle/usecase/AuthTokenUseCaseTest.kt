@@ -6,6 +6,7 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.extension.ExtendWith
 import universe.sparkle.domain.JwtConfigContract
 import universe.sparkle.domain.SnsType
+import universe.sparkle.domain.exception.Unauthorized
 import universe.sparkle.domain.model.User
 import universe.sparkle.usecase.user.BeIssuedAuthTokenUseCase
 import universe.sparkle.usecase.user.ValidateTokenUseCase
@@ -75,7 +77,43 @@ class AuthTokenUseCaseTest {
         }
     }
 
-    // TODO 토큰이 만료된 경우 테스트 작성
+    @Test
+    fun 만료된_유저의_토큰이_주어진_경우_토큰_만료_에러가_발생한다() {
+        // given
+        val user = User(
+            id = 1,
+            snsType = SnsType.APPLE,
+            snsAuthCode = "test",
+        )
+        every { jwtConfig.getSecret() } answers { "secretSecretSecretSecretSecretSecretSecretSecretSecret" }
+        every { jwtConfig.getAccessExpiryPeriodDay() } answers { -1L }
+        every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
+        // when
+        val authToken = beIssuedAuthTokenUseCase(user)
+        // then
+        assertThatThrownBy { validateTokenUseCase(authToken.accessToken) }
+            .isInstanceOf(Unauthorized.ExpiredToken::class.java)
+            .hasMessage("토큰이 만료 되었습니다.")
+    }
 
-    // TODO 토큰이 변조된 경우 테스트 작성
+    @Test
+    fun 유저의_토큰이_변조된_경우_토큰_변조_에러가_발생한다() {
+        // given
+        val user = User(
+            id = 1,
+            snsType = SnsType.APPLE,
+            snsAuthCode = "test",
+        )
+        every { jwtConfig.getSecret() } answers {
+            "secretSecretSecretSecretSecretSecretSecretSecretSecret"
+        } andThenAnswer { "wiredSecretSecretSecretSecretSecretSecretSecretSecret" }
+        every { jwtConfig.getAccessExpiryPeriodDay() } answers { 1L }
+        every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
+        // when
+        val authToken = beIssuedAuthTokenUseCase(user)
+        // then
+        assertThatThrownBy { validateTokenUseCase(authToken.accessToken) }
+            .isInstanceOf(Unauthorized.UnsupportedToken::class.java)
+            .hasMessage("지원하지 않는 방식의 토큰 혹은 변조된 토큰을 사용한 경우입니다.")
+    }
 }
