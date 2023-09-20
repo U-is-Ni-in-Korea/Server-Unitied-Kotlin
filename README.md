@@ -1,9 +1,11 @@
 ![image](https://github.com/U-is-Ni-in-Korea/Server-Unitied-Kotlin/assets/45380072/8b8a96e9-4225-493f-b9f2-a02d350351a0)
 해당 프로젝트는 SOPT 32th APPJAM 프로젝트의 kotlin + Spring Boot 적용 및 Architecutre 설계 프로젝트 입니다.
 ## TOC
-1.[Project Info](#Project-Info)
-2.[Project Service Info](#Project-Service-Info)
+1.[Project Info](#Project-Info)</br>
+2.[Project Service Info](#Project-Service-Info)</br>
 
+---
+</br></br>
 ## Project Info
 ![image](https://github.com/U-is-Ni-in-Korea/Server-Unitied-Kotlin/assets/45380072/a7b1973b-a112-4a13-88e7-85cf032c7d39)
 해당 프로젝트의 각 모듈은 CleanArchitecture 의 규칙을 이용합니다.
@@ -28,7 +30,7 @@ Kotlin 이외 의존성을 추가하지 않는 것을 목표로 설계하였습�
 infrastructure -> usecase -> domain 의 방향으로 의존할 수 있도록 설계하였습니다.</br>
 내부에 존재하는 모듈은 외부의 의존하지 않으며 외부의 요청에 따라 동작할 수 있도록 DIP 를 적용하여 interface로 명시한 기능만을 수행할 수 있도록 구성하였습니다.</br>
 각 모듈의 변경이 다른 모듈의 변경을 최소화하고 테스트하기 용이하게 만들어 다양한 테스트 코드를 작성하기 위해 이와 같이 구성하게 되었습니다.
-
+</br></br>
 ## Project Service Info
 
 <div >
