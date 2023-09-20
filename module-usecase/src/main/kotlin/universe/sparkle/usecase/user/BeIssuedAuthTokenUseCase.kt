@@ -54,9 +54,9 @@ class BeIssuedAuthTokenUseCase @Autowired constructor(
     }
 
     private fun createAccessTokenClaims(user: User) = Jwts.claims()
-        .setSubject("AccessToken")
+        .setSubject(BeIssuedAuthTokenInputBoundary.ACCESS_TOKEN_SUBJECT)
         .also {
-            it["userId"] = user.id
+            it[BeIssuedAuthTokenInputBoundary.CLAIMS_USER_ID] = user.id
         }
 
     private fun createExpiration(expiryPeriod: Long): Instant = LocalDateTime.now()
