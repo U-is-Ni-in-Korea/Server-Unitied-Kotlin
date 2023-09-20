@@ -15,7 +15,7 @@ jobs:
         uses: ./.github/workflows/gradle_task.yml
         with:
             tasks: '["ktlintCheck", "build -x test -x ktlintCheck", "test"]'
-            secrets: inherit
+        secrets: inherit
 
     publish-test-result:
         needs:
