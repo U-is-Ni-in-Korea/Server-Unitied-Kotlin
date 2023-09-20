@@ -31,3 +31,11 @@ data class User(
         require(value?.let { it.length > 10 } ?: true)
     }
 }
+
+fun User.toAuthenticationToken() = this.id?.let { userId ->
+    AuthenticationToken(
+        id = userId,
+        nickname = this.nickname,
+        image = this.image,
+    )
+}

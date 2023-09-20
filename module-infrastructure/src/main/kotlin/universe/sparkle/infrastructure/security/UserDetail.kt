@@ -3,23 +3,23 @@ package universe.sparkle.infrastructure.security
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
-import universe.sparkle.domain.model.User
+import universe.sparkle.domain.model.AuthenticationToken
 import java.util.stream.Collectors
 
-class UserDetail private constructor(
+class UserDetail constructor(
     val id: Long,
     private val nickname: String?,
-    private val snsAuthCode: String,
-    private val authorities: List<GrantedAuthority> = listOf(SimpleGrantedAuthority("User")),
     val image: String?,
+    private val authorities: List<GrantedAuthority> = listOf(SimpleGrantedAuthority("User")),
 ) : UserDetails {
+
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return authorities.stream().collect(
             Collectors.toSet(),
         )
     }
 
-    override fun getPassword(): String = snsAuthCode
+    override fun getPassword(): String? = null
 
     override fun getUsername(): String? = nickname
 
@@ -32,13 +32,14 @@ class UserDetail private constructor(
     override fun isEnabled(): Boolean = true
 
     companion object {
-        fun of(user: User): UserDetail {
-            return UserDetail(
-                id = 0,
-                nickname = user.nickname,
-                snsAuthCode = user.snsAuthCode,
-                image = user.image,
-            )
+        fun of(user: AuthenticationToken): UserDetail? {
+            return user.id?.let { userId ->
+                UserDetail(
+                    id = userId,
+                    nickname = user.nickname,
+                    image = user.image,
+                )
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ import java.util.Date
 import javax.crypto.spec.SecretKeySpec
 
 @Service
-class BeIssuedAuthTokenUseCase @Autowired constructor(
+internal class BeIssuedAuthTokenUseCase @Autowired constructor(
     private val jwtConfig: JwtConfigContract,
 ) : BeIssuedAuthTokenInputBoundary {
 

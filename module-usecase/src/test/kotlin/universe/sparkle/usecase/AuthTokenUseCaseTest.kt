@@ -10,11 +10,12 @@ import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
-import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.extension.ExtendWith
 import universe.sparkle.domain.JwtConfigContract
 import universe.sparkle.domain.SnsType
 import universe.sparkle.domain.exception.Unauthorized
+import universe.sparkle.domain.gateway.UserDetailGateway
+import universe.sparkle.domain.model.AuthenticationToken
 import universe.sparkle.domain.model.User
 import universe.sparkle.usecase.user.BeIssuedAuthTokenUseCase
 import universe.sparkle.usecase.user.ExtractTokenUseCase
@@ -24,6 +25,9 @@ class AuthTokenUseCaseTest {
 
     @MockK
     private lateinit var jwtConfig: JwtConfigContract
+
+    @MockK
+    private lateinit var userDetailGateway: UserDetailGateway
 
     @InjectMockKs
     private lateinit var beIssuedAuthTokenUseCase: BeIssuedAuthTokenUseCase
@@ -59,7 +63,7 @@ class AuthTokenUseCaseTest {
     }
 
     @Test
-    fun 만료되지_않은_유저의_토큰이_주어진_경우_검증을_통과한다() {
+    fun 만료되지_않은_유저의_토큰이_주어진_경우_AuthenticationToken을_통해_userId를_얻을_수_있다() {
         // given
         val user = User(
             id = 1L,
@@ -69,12 +73,22 @@ class AuthTokenUseCaseTest {
         every { jwtConfig.getSecret() } answers { "secretSecretSecretSecretSecretSecretSecretSecretSecret" }
         every { jwtConfig.getAccessExpiryPeriodDay() } answers { 1L }
         every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
+        every { userDetailGateway.loadUserById("1") } answers {
+            AuthenticationToken(id = 1L, nickname = null, image = null)
+        }
         // when
         val authToken = beIssuedAuthTokenUseCase(user)
         // then
-        assertDoesNotThrow {
-            extractTokenUseCase(authToken.accessToken)
-        }
+        assertAll(
+            {
+                assertThat(extractTokenUseCase(authToken.accessToken))
+                    .isInstanceOf(AuthenticationToken::class.java)
+            },
+            {
+                assertThat(extractTokenUseCase(authToken.accessToken).id)
+                    .isEqualTo(1L)
+            },
+        )
     }
 
     @Test
@@ -88,6 +102,9 @@ class AuthTokenUseCaseTest {
         every { jwtConfig.getSecret() } answers { "secretSecretSecretSecretSecretSecretSecretSecretSecret" }
         every { jwtConfig.getAccessExpiryPeriodDay() } answers { -1L }
         every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
+        every { userDetailGateway.loadUserById("1") } answers {
+            AuthenticationToken(id = 1L, nickname = null, image = null)
+        }
         // when
         val authToken = beIssuedAuthTokenUseCase(user)
         // then
@@ -109,6 +126,9 @@ class AuthTokenUseCaseTest {
         } andThenAnswer { "wiredSecretSecretSecretSecretSecretSecretSecretSecret" }
         every { jwtConfig.getAccessExpiryPeriodDay() } answers { 1L }
         every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
+        every { userDetailGateway.loadUserById("1") } answers {
+            AuthenticationToken(id = 1L, nickname = null, image = null)
+        }
         // when
         val authToken = beIssuedAuthTokenUseCase(user)
         // then
@@ -127,6 +147,9 @@ class AuthTokenUseCaseTest {
         every { jwtConfig.getSecret() } answers { "secretSecretSecretSecretSecretSecretSecretSecretSecret" }
         every { jwtConfig.getAccessExpiryPeriodDay() } answers { 1L }
         every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
+        every { userDetailGateway.loadUserById(null) } answers {
+            throw Unauthorized.UnsupportedToken()
+        }
         // when
         val authToken = beIssuedAuthTokenUseCase(user)
         // then
