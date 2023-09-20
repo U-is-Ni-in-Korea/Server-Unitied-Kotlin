@@ -1,11 +1,8 @@
 package universe.sparkle.usecase.user
 
 import io.jsonwebtoken.Claims
-import io.jsonwebtoken.ExpiredJwtException
+import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.MalformedJwtException
-import io.jsonwebtoken.UnsupportedJwtException
-import io.jsonwebtoken.security.SignatureException
 import jakarta.xml.bind.DatatypeConverter
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -37,15 +34,9 @@ class ExtractTokenUseCase @Autowired constructor(
                 .parseClaimsJws(token)
                 .body
         }.getOrElse {
-            when (it) {
-                is ExpiredJwtException -> throw Unauthorized.ExpiredToken()
-                is MalformedJwtException,
-                is UnsupportedJwtException,
-                is SignatureException,
-                -> throw Unauthorized.UnsupportedToken()
-
-                else -> throw IllegalStateException("Problem occurred during JWT processing")
-            }
+            if (it !is JwtException) throw IllegalStateException("Problem occurred during JWT processing")
+            if (isExpired(token)) throw Unauthorized.ExpiredToken()
+            throw throw Unauthorized.UnsupportedToken()
         }
     }
 
