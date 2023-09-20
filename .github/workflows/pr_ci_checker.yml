@@ -25,7 +25,10 @@ jobs:
             -   name: Publish Test Results
                 uses: EnricoMi/publish-unit-test-result-action@v1
                 with:
-                    files: build/test-results/**/*.xml
+                    files: |
+                        module-domain/build/test-results/**/*.xml
+                        module-infrastructure/build/test-results/**/*.xml
+                        module-usecase/build/test-results/**/*.xml
 
 
     result-success:
