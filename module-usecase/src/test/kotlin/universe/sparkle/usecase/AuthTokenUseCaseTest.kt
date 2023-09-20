@@ -17,7 +17,7 @@ import universe.sparkle.domain.SnsType
 import universe.sparkle.domain.exception.Unauthorized
 import universe.sparkle.domain.model.User
 import universe.sparkle.usecase.user.BeIssuedAuthTokenUseCase
-import universe.sparkle.usecase.user.ValidateTokenUseCase
+import universe.sparkle.usecase.user.ExtractTokenUseCase
 
 @ExtendWith(MockKExtension::class)
 class AuthTokenUseCaseTest {
@@ -29,12 +29,12 @@ class AuthTokenUseCaseTest {
     private lateinit var beIssuedAuthTokenUseCase: BeIssuedAuthTokenUseCase
 
     @InjectMockKs
-    private lateinit var validateTokenUseCase: ValidateTokenUseCase
+    private lateinit var extractTokenUseCase: ExtractTokenUseCase
 
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this.beIssuedAuthTokenUseCase, relaxed = true, relaxUnitFun = true)
-        MockKAnnotations.init(this.validateTokenUseCase, relaxed = true, relaxUnitFun = true)
+        MockKAnnotations.init(this.extractTokenUseCase, relaxed = true, relaxUnitFun = true)
     }
 
     @Test
@@ -62,7 +62,7 @@ class AuthTokenUseCaseTest {
     fun 만료되지_않은_유저의_토큰이_주어진_경우_검증을_통과한다() {
         // given
         val user = User(
-            id = 1,
+            id = 1L,
             snsType = SnsType.APPLE,
             snsAuthCode = "test",
         )
@@ -73,7 +73,7 @@ class AuthTokenUseCaseTest {
         val authToken = beIssuedAuthTokenUseCase(user)
         // then
         assertDoesNotThrow {
-            validateTokenUseCase(authToken.accessToken)
+            extractTokenUseCase(authToken.accessToken)
         }
     }
 
@@ -91,7 +91,7 @@ class AuthTokenUseCaseTest {
         // when
         val authToken = beIssuedAuthTokenUseCase(user)
         // then
-        assertThatThrownBy { validateTokenUseCase(authToken.accessToken) }
+        assertThatThrownBy { extractTokenUseCase(authToken.accessToken) }
             .isInstanceOf(Unauthorized.ExpiredToken::class.java)
             .hasMessage("토큰이 만료 되었습니다.")
     }
@@ -112,7 +112,25 @@ class AuthTokenUseCaseTest {
         // when
         val authToken = beIssuedAuthTokenUseCase(user)
         // then
-        assertThatThrownBy { validateTokenUseCase(authToken.accessToken) }
+        assertThatThrownBy { extractTokenUseCase(authToken.accessToken) }
+            .isInstanceOf(Unauthorized.UnsupportedToken::class.java)
+            .hasMessage("지원하지 않는 방식의 토큰 혹은 변조된 토큰을 사용한 경우입니다.")
+    }
+
+    @Test
+    fun 토큰에_유저_아이디가_없다면_에러가_발생한다() {
+        // given
+        val user = User(
+            snsType = SnsType.GOOGLE,
+            snsAuthCode = "test",
+        )
+        every { jwtConfig.getSecret() } answers { "secretSecretSecretSecretSecretSecretSecretSecretSecret" }
+        every { jwtConfig.getAccessExpiryPeriodDay() } answers { 1L }
+        every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
+        // when
+        val authToken = beIssuedAuthTokenUseCase(user)
+        // then
+        assertThatThrownBy { extractTokenUseCase(authToken.accessToken) }
             .isInstanceOf(Unauthorized.UnsupportedToken::class.java)
             .hasMessage("지원하지 않는 방식의 토큰 혹은 변조된 토큰을 사용한 경우입니다.")
     }
