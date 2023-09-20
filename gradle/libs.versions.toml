@@ -6,6 +6,7 @@ springdoc = "2.1.0"
 jjwt = "0.11.5"
 kotlin = "1.8.22"
 ktlint = "11.0.0"
+mockk = "1.13.7"
 
 service = "0.0.1-SNAPSHOT"
 
@@ -47,6 +48,7 @@ test-spring-boot-starter = { module = "org.springframework.boot:spring-boot-star
 test-spring-security = { module = "org.springframework.security:spring-security-test" }
 test-junit5-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
 test-junit5-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5" }
+test-mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 [plugins]
 # common
@@ -62,3 +64,8 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 # kotlin
 
 [bundles]
+jjwt = [
+    "jjwt-api",
+    "jjwt-impl",
+    "jjwt-jackson"
+]
