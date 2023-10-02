@@ -29,7 +29,7 @@ class SecurityConfig @Autowired constructor(
             .cors { it.configurationSource(corsConfigurationSource()) }
             .authorizeHttpRequests {
                 it.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/auth/*", "/status/uni/*").permitAll()
-                it.requestMatchers("/api").authenticated()
+                it.requestMatchers("/api/**").hasAuthority("User")
             }.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .addFilterBefore(jwtExceptionFilter, JwtAuthenticationFilter::class.java)
             .build()

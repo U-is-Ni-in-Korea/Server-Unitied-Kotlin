@@ -32,14 +32,12 @@ class UserDetail constructor(
     override fun isEnabled(): Boolean = true
 
     companion object {
-        fun of(user: AuthenticationToken): UserDetail? {
-            return user.id?.let { userId ->
-                UserDetail(
-                    id = userId,
-                    nickname = user.nickname,
-                    image = user.image,
-                )
-            }
+        fun of(user: AuthenticationToken): UserDetail {
+            return UserDetail(
+                id = user.id,
+                nickname = user.nickname,
+                image = user.image,
+            )
         }
     }
 }

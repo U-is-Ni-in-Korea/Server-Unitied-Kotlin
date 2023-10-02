@@ -4,5 +4,6 @@ import universe.sparkle.domain.model.User
 
 interface UserGateway {
     fun findUserById(userId: Long): User
-    fun saveUser(user: User)
+    fun saveUser(user: User): User
+    fun findUserBySnsAuthCode(snsAuthCode: String): User?
 }

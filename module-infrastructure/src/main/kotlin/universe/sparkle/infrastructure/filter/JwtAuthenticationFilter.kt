@@ -37,13 +37,14 @@ class JwtAuthenticationFilter @Autowired constructor(
     private fun getJwtFromRequest(request: HttpServletRequest): String {
         val tokenType = "Bearer "
         return runCatching {
-            request.getHeader("Authentication").substring(tokenType.length)
+            request.getHeader("Authorization").substring(tokenType.length)
         }.getOrNull() ?: throw Unauthorized.TokenNotExistent()
     }
 
     private fun setSecurityContextHolder(token: String) {
-        val userDetail: UserDetails = UserDetail.of(extractTokenUseCase(token))
-            ?: throw BadRequest.UserNotExistent()
+        val userDetail: UserDetails = UserDetail.of(
+            extractTokenUseCase(token),
+        ) ?: throw BadRequest.UserNotExistent()
         UsernamePasswordAuthenticationToken(
             userDetail,
             userDetail.password,

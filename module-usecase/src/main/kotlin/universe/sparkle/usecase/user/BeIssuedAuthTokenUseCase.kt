@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import universe.sparkle.domain.usecase.BeIssuedAuthTokenInputBoundary
 import universe.sparkle.domain.JwtConfigContract
+import universe.sparkle.domain.gateway.UserGateway
 import universe.sparkle.domain.model.AuthToken
 import universe.sparkle.domain.model.User
 import java.time.Instant
@@ -17,6 +18,7 @@ import javax.crypto.spec.SecretKeySpec
 @Service
 internal class BeIssuedAuthTokenUseCase @Autowired constructor(
     private val jwtConfig: JwtConfigContract,
+    private val userGateway: UserGateway
 ) : BeIssuedAuthTokenInputBoundary {
 
     private val signatureAlgorithm = SignatureAlgorithm.HS256
@@ -28,8 +30,9 @@ internal class BeIssuedAuthTokenUseCase @Autowired constructor(
     ): AuthToken {
         val secretKeyBytes = DatatypeConverter.parseBase64Binary(jwtConfig.getSecret())
         val signingKey = SecretKeySpec(secretKeyBytes, signatureAlgorithm.jcaName)
+        val savedUser = userGateway.findUserBySnsAuthCode(user.snsAuthCode) ?: userGateway.saveUser(user)
         return AuthToken(
-            accessToken = beIssuedAccessToken(user, accessExpiryPeriodDay, signingKey),
+            accessToken = beIssuedAccessToken(savedUser, accessExpiryPeriodDay, signingKey),
         )
     }
 

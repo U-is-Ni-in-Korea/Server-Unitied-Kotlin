@@ -122,8 +122,8 @@ class AuthTokenUseCaseTest {
             snsAuthCode = "test",
         )
         every { jwtConfig.getSecret() } answers {
-            "secretSecretSecretSecretSecretSecretSecretSecretSecret"
-        } andThenAnswer { "wiredSecretSecretSecretSecretSecretSecretSecretSecret" }
+            "WiredSecretSecretSecretSecretSecretSecretSecretSecretSecret"
+        } andThenAnswer { "SecretSecretSecretSecretSecretSecretSecretSecret" }
         every { jwtConfig.getAccessExpiryPeriodDay() } answers { 1L }
         every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
         every { userDetailGateway.loadUserById("1") } answers {

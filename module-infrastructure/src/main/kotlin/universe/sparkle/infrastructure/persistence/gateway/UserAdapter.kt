@@ -22,8 +22,14 @@ internal class UserAdapter @Autowired constructor(
         return userEntity.toDomain()
     }
 
-    override fun saveUser(user: User) {
-        user.toEntity()
+    override fun saveUser(user: User): User {
+        return user.toEntity()
             .also { userEntity -> userJpaRepository.save(userEntity) }
+            .toDomain()
+    }
+
+    override fun findUserBySnsAuthCode(snsAuthCode: String): User? {
+        return userJpaRepository.findBySnsAuthCode(snsAuthCode)
+            ?.toDomain()
     }
 }
