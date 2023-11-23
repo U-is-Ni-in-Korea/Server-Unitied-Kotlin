@@ -12,8 +12,8 @@ import universe.sparkle.infrastructure.persistence.entity.UserEntity
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class UserJpaRepositoryTest @Autowired constructor(
-    private val userJpaRepository: UserJpaRepository,
+class UserRepositoryTest @Autowired constructor(
+    private val userRepository: UserRepository,
 ) {
 
     @ParameterizedTest
@@ -28,7 +28,7 @@ class UserJpaRepositoryTest @Autowired constructor(
             snsAuthCode = expectedAuthCode,
         )
         // when
-        val actualUser = userJpaRepository.save(expectedUser)
+        val actualUser = userRepository.save(expectedUser)
         // then
         assertAll(
             { assertThat(actualUser.id).isNotNull() },

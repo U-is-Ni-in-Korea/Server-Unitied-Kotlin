@@ -11,19 +11,19 @@ import universe.sparkle.domain.gateway.UserDetailGateway
 import universe.sparkle.domain.model.AuthenticationToken
 import universe.sparkle.domain.model.toAuthenticationToken
 import universe.sparkle.infrastructure.persistence.mapper.toDomain
-import universe.sparkle.infrastructure.persistence.repository.UserJpaRepository
+import universe.sparkle.infrastructure.persistence.repository.UserRepository
 
 @Repository
 class UserDetailAdapter @Autowired constructor(
-    private val userJpaRepository: UserJpaRepository,
+    private val userRepository: UserRepository,
 ) : UserDetailGateway, UserDetailsService {
 
     override fun loadUserByUsername(username: String?): UserDetails {
         val userId = username?.toLong() ?: throw Unauthorized.UnsupportedToken()
-        val user = userJpaRepository.findByIdOrNull(userId)?.toDomain()
+        val user = userRepository.findByIdOrNull(userId)?.toDomain()
             ?: throw BadRequest.UserNotExistent()
         val userAuthenticationToken = user.toAuthenticationToken() ?: throw BadRequest.UserNotExistent()
-        return UserDetail.of(userAuthenticationToken) ?: throw BadRequest.UserNotExistent()
+        return UserDetail.of(userAuthenticationToken)
     }
 
     override fun loadUserById(userId: String?): AuthenticationToken {

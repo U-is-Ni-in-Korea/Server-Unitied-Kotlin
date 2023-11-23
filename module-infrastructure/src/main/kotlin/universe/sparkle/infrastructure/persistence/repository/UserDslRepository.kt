@@ -1,0 +1,3 @@
+package universe.sparkle.infrastructure.persistence.repository
+
+interface UserDslRepository

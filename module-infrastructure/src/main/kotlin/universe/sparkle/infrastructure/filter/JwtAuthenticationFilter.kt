@@ -9,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
-import universe.sparkle.domain.exception.BadRequest
 import universe.sparkle.domain.exception.Unauthorized
 import universe.sparkle.domain.usecase.ExtractTokenInputBoundary
 import universe.sparkle.infrastructure.security.UserDetail
@@ -44,7 +43,7 @@ class JwtAuthenticationFilter @Autowired constructor(
     private fun setSecurityContextHolder(token: String) {
         val userDetail: UserDetails = UserDetail.of(
             extractTokenUseCase(token),
-        ) ?: throw BadRequest.UserNotExistent()
+        )
         UsernamePasswordAuthenticationToken(
             userDetail,
             userDetail.password,

@@ -1,18 +1,14 @@
 package universe.sparkle.infrastructure.persistence.entity.converter
 
-import jakarta.persistence.AttributeConverter
-import jakarta.persistence.Converter
 import universe.sparkle.domain.SnsType
 
-@Converter
-class SnsTypeAttributeConverter : AttributeConverter<SnsType, String> {
+class SnsTypeAttributeConverter : EnumAttributeConvertor<SnsType>() {
 
-    override fun convertToDatabaseColumn(attribute: SnsType?): String {
-        return attribute?.name ?: throw IllegalArgumentException("can not convert SnsType to database column")
+    override fun convertToEntity(dbData: String): SnsType {
+        return SnsType.valueOf(dbData)
     }
 
-    override fun convertToEntityAttribute(dbData: String?): SnsType {
-        return dbData?.let { SnsType.findSnsTypeBy(it) }
-            ?: throw IllegalArgumentException("DB data is not null")
+    override fun convertToDataBase(attribute: SnsType): String {
+        return attribute.name
     }
 }

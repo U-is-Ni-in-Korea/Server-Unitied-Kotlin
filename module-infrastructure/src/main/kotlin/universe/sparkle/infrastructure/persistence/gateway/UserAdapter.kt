@@ -9,27 +9,27 @@ import universe.sparkle.domain.model.User
 import universe.sparkle.infrastructure.persistence.entity.UserEntity
 import universe.sparkle.infrastructure.persistence.mapper.toDomain
 import universe.sparkle.infrastructure.persistence.mapper.toEntity
-import universe.sparkle.infrastructure.persistence.repository.UserJpaRepository
+import universe.sparkle.infrastructure.persistence.repository.UserRepository
 
 @Repository
 internal class UserAdapter @Autowired constructor(
-    private val userJpaRepository: UserJpaRepository,
+    private val userRepository: UserRepository,
 ) : UserGateway {
 
     override fun findUserById(userId: Long): User {
-        val userEntity: UserEntity = userJpaRepository.findByIdOrNull(userId)
+        val userEntity: UserEntity = userRepository.findByIdOrNull(userId)
             ?: throw BadRequest.UserNotExistent()
         return userEntity.toDomain()
     }
 
     override fun saveUser(user: User): User {
         return user.toEntity()
-            .also { userEntity -> userJpaRepository.save(userEntity) }
+            .also { userEntity -> userRepository.save(userEntity) }
             .toDomain()
     }
 
     override fun findUserBySnsAuthCode(snsAuthCode: String): User? {
-        return userJpaRepository.findBySnsAuthCode(snsAuthCode)
+        return userRepository.findBySnsAuthCode(snsAuthCode)
             ?.toDomain()
     }
 }

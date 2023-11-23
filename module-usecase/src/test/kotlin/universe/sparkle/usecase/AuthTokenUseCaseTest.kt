@@ -15,6 +15,7 @@ import universe.sparkle.domain.JwtConfigContract
 import universe.sparkle.domain.SnsType
 import universe.sparkle.domain.exception.Unauthorized
 import universe.sparkle.domain.gateway.UserDetailGateway
+import universe.sparkle.domain.gateway.UserGateway
 import universe.sparkle.domain.model.AuthenticationToken
 import universe.sparkle.domain.model.User
 import universe.sparkle.usecase.user.BeIssuedAuthTokenUseCase
@@ -28,6 +29,9 @@ class AuthTokenUseCaseTest {
 
     @MockK
     private lateinit var userDetailGateway: UserDetailGateway
+
+    @MockK
+    private lateinit var userGateway: UserGateway
 
     @InjectMockKs
     private lateinit var beIssuedAuthTokenUseCase: BeIssuedAuthTokenUseCase
@@ -52,6 +56,7 @@ class AuthTokenUseCaseTest {
         every { jwtConfig.getSecret() } answers { "secretSecretSecretSecretSecretSecretSecretSecretSecret" }
         every { jwtConfig.getAccessExpiryPeriodDay() } answers { 1L }
         every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
+        every { userGateway.findUserBySnsAuthCode(user.snsAuthCode) } answers { user }
         // when
         val authToken = beIssuedAuthTokenUseCase(user)
         // then
@@ -73,6 +78,7 @@ class AuthTokenUseCaseTest {
         every { jwtConfig.getSecret() } answers { "secretSecretSecretSecretSecretSecretSecretSecretSecret" }
         every { jwtConfig.getAccessExpiryPeriodDay() } answers { 1L }
         every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
+        every { userGateway.findUserBySnsAuthCode(user.snsAuthCode) } answers { user }
         every { userDetailGateway.loadUserById("1") } answers {
             AuthenticationToken(id = 1L, nickname = null, image = null)
         }
@@ -102,6 +108,7 @@ class AuthTokenUseCaseTest {
         every { jwtConfig.getSecret() } answers { "secretSecretSecretSecretSecretSecretSecretSecretSecret" }
         every { jwtConfig.getAccessExpiryPeriodDay() } answers { -1L }
         every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
+        every { userGateway.findUserBySnsAuthCode(user.snsAuthCode) } answers { user }
         every { userDetailGateway.loadUserById("1") } answers {
             AuthenticationToken(id = 1L, nickname = null, image = null)
         }
@@ -126,6 +133,7 @@ class AuthTokenUseCaseTest {
         } andThenAnswer { "SecretSecretSecretSecretSecretSecretSecretSecret" }
         every { jwtConfig.getAccessExpiryPeriodDay() } answers { 1L }
         every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
+        every { userGateway.findUserBySnsAuthCode(user.snsAuthCode) } answers { user }
         every { userDetailGateway.loadUserById("1") } answers {
             AuthenticationToken(id = 1L, nickname = null, image = null)
         }
@@ -147,6 +155,7 @@ class AuthTokenUseCaseTest {
         every { jwtConfig.getSecret() } answers { "secretSecretSecretSecretSecretSecretSecretSecretSecret" }
         every { jwtConfig.getAccessExpiryPeriodDay() } answers { 1L }
         every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
+        every { userGateway.findUserBySnsAuthCode(user.snsAuthCode) } answers { user }
         every { userDetailGateway.loadUserById(null) } answers {
             throw Unauthorized.UnsupportedToken()
         }
