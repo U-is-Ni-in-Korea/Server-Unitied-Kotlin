@@ -4,12 +4,14 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import universe.sparkle.domain.model.AuthenticationToken
+import universe.sparkle.domain.model.Couple
 import java.util.stream.Collectors
 
 class UserDetail constructor(
     val id: Long,
     private val nickname: String?,
     val image: String?,
+    val couple: Couple?,
     private val authorities: List<GrantedAuthority> = listOf(SimpleGrantedAuthority("User")),
 ) : UserDetails {
 
@@ -37,6 +39,7 @@ class UserDetail constructor(
                 id = user.id,
                 nickname = user.nickname,
                 image = user.image,
+                couple = user.couple
             )
         }
     }

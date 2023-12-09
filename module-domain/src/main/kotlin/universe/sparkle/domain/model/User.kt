@@ -8,7 +8,7 @@ data class User(
     val snsAuthCode: String,
     val nickname: String? = null,
     val image: String? = null,
-    val fcmToken: String? = null,
+    val couple: Couple? = null,
 ) {
 
     init {
@@ -23,7 +23,7 @@ data class User(
             snsAuthCode = this.snsAuthCode,
             nickname = updateNickname,
             image = updateImage,
-            fcmToken = this.fcmToken,
+            couple = this.couple,
         )
     }
 
@@ -37,5 +37,6 @@ fun User.toAuthenticationToken() = this.id?.let { userId ->
         id = userId,
         nickname = this.nickname,
         image = this.image,
+        couple = this.couple,
     )
 }
