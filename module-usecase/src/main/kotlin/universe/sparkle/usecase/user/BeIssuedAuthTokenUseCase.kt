@@ -18,7 +18,7 @@ import javax.crypto.spec.SecretKeySpec
 @Service
 internal class BeIssuedAuthTokenUseCase @Autowired constructor(
     private val jwtConfig: JwtConfigContract,
-    private val userGateway: UserGateway
+    private val userGateway: UserGateway,
 ) : BeIssuedAuthTokenInputBoundary {
 
     private val signatureAlgorithm = SignatureAlgorithm.HS256

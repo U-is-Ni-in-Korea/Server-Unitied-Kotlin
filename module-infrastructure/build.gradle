@@ -50,7 +50,10 @@ dependencies {
     developmentOnly libs.spring.boot.devtools
 
     testRuntimeOnly libs.db.h2
-    testImplementation libs.test.spring.boot.starter
+    testImplementation(libs.test.spring.boot.starter) {
+        exclude module: 'mockito-core'
+    }
+    testImplementation libs.test.mockk
     testImplementation libs.test.spring.security
 }
 
