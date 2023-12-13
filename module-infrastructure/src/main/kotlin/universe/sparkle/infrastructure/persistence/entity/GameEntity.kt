@@ -27,6 +27,7 @@ class GameEntity(
     coupleId: Long,
     onDelete: Boolean = false,
 ) {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
