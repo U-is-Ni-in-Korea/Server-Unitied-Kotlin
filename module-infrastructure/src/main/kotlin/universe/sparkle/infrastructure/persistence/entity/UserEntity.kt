@@ -15,7 +15,7 @@ import universe.sparkle.domain.model.User
 import universe.sparkle.infrastructure.persistence.entity.converter.SnsTypeAttributeConverter
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 class UserEntity(
     id: Long? = null,
     snsType: SnsType,
