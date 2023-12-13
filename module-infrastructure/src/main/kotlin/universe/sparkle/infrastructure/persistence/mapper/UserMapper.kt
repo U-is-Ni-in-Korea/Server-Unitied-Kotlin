@@ -10,7 +10,7 @@ fun UserEntity.toDomain() = User(
     snsAuthCode = this.snsAuthCode,
     nickname = this.nickname,
     image = this.image,
-    fcmToken = this.fcmToken,
+    couple = this.couple?.toDomain(),
 )
 
 fun User.toEntity() = UserEntity(
@@ -19,5 +19,5 @@ fun User.toEntity() = UserEntity(
     snsAuthCode = this.snsAuthCode,
     nickname = this.nickname,
     image = this.image,
-    fcmToken = this.fcmToken,
+    couple = this.couple?.toEntity(),
 )

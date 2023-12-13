@@ -11,7 +11,7 @@ import universe.sparkle.domain.SnsType
 import universe.sparkle.infrastructure.persistence.entity.UserEntity
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase
 class UserRepositoryTest @Autowired constructor(
     private val userRepository: UserRepository,
 ) {

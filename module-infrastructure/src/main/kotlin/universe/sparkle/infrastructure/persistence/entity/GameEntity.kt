@@ -1,6 +1,7 @@
 package universe.sparkle.infrastructure.persistence.entity
 
 import jakarta.persistence.Column
+import jakarta.persistence.Convert
 import jakarta.persistence.DiscriminatorColumn
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -9,33 +10,47 @@ import jakarta.persistence.Id
 import jakarta.persistence.Inheritance
 import jakarta.persistence.InheritanceType
 import jakarta.persistence.Table
-import java.time.LocalDateTime
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Size
+import universe.sparkle.domain.GameResult
+import universe.sparkle.infrastructure.persistence.entity.converter.GameResultAttributeConverter
+import java.time.Instant
 
 @Entity
 @Table(name = "game")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn
-open class GameEntity(
+@DiscriminatorColumn(name = "GAME_TYPE")
+class GameEntity(
     id: Long? = null,
+    finishedAt: Instant? = null,
+    result: GameResult = GameResult.UNDECIDED,
     coupleId: Long,
-    enable: Boolean = true,
-    finishedAt: LocalDateTime? = null,
+    onDelete: Boolean = false,
 ) {
+
     @Id
-    @Column(name = "game_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long? = null
-        protected set
-
-    @Column(name = "couple_id", nullable = false)
-    var coupleId = coupleId
-        protected set
-
-    @Column(name = "enable", nullable = false)
-    var enable: Boolean = enable
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    var id: Long? = id
         protected set
 
     @Column(name = "finished_at")
-    var finishedAt: LocalDateTime? = finishedAt
+    var finishedAt: Instant? = finishedAt
+        protected set
+
+    @Size(max = 10)
+    @Convert(converter = GameResultAttributeConverter::class)
+    @Column(name = "result", length = 10)
+    var result: GameResult = result
+        protected set
+
+    @NotNull
+    @Column(name = "couple_id", nullable = false)
+    var couple: Long = coupleId
+        protected set
+
+    @NotNull
+    @Column(name = "on_delete", nullable = false)
+    var onDelete: Boolean = onDelete
         protected set
 }

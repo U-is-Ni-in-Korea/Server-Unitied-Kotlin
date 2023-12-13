@@ -15,10 +15,11 @@ class CoupleEntity(
     id: Long? = null,
     startDate: LocalDate,
     heartToken: Int = 5,
+    isDelete: Boolean = false,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "couple_id")
+    @Column(name = "id")
     var id: Long? = id
         protected set
 
@@ -30,4 +31,8 @@ class CoupleEntity(
     @ColumnDefault("5")
     var heartToken: Int = heartToken
         protected set
+
+    @Column(name = "is_delete", nullable = false)
+    @ColumnDefault("false")
+    var isDelete: Boolean = isDelete
 }

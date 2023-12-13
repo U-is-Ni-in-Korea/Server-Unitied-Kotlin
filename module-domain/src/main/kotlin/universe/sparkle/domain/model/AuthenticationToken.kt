@@ -4,4 +4,5 @@ data class AuthenticationToken(
     val id: Long,
     val nickname: String?,
     val image: String?,
+    val couple: Couple?
 )

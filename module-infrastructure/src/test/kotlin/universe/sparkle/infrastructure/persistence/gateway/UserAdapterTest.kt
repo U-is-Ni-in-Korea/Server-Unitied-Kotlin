@@ -12,7 +12,7 @@ import universe.sparkle.domain.gateway.UserGateway
 import universe.sparkle.domain.model.User
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase
 class UserAdapterTest @Autowired constructor(
     private val userAdapter: UserGateway,
 ) {

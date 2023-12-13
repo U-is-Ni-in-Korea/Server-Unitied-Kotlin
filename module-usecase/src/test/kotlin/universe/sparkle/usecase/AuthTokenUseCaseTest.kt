@@ -80,7 +80,7 @@ class AuthTokenUseCaseTest {
         every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
         every { userGateway.findUserBySnsAuthCode(user.snsAuthCode) } answers { user }
         every { userDetailGateway.loadUserById("1") } answers {
-            AuthenticationToken(id = 1L, nickname = null, image = null)
+            AuthenticationToken(id = 1L, nickname = null, image = null, couple = null)
         }
         // when
         val authToken = beIssuedAuthTokenUseCase(user)
@@ -110,7 +110,7 @@ class AuthTokenUseCaseTest {
         every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
         every { userGateway.findUserBySnsAuthCode(user.snsAuthCode) } answers { user }
         every { userDetailGateway.loadUserById("1") } answers {
-            AuthenticationToken(id = 1L, nickname = null, image = null)
+            AuthenticationToken(id = 1L, nickname = null, image = null, couple = null)
         }
         // when
         val authToken = beIssuedAuthTokenUseCase(user)
@@ -135,7 +135,7 @@ class AuthTokenUseCaseTest {
         every { jwtConfig.getRefreshExpiryPeriodDay() } answers { 2L }
         every { userGateway.findUserBySnsAuthCode(user.snsAuthCode) } answers { user }
         every { userDetailGateway.loadUserById("1") } answers {
-            AuthenticationToken(id = 1L, nickname = null, image = null)
+            AuthenticationToken(id = 1L, nickname = null, image = null, couple = null)
         }
         // when
         val authToken = beIssuedAuthTokenUseCase(user)
