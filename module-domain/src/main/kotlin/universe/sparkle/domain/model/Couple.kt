@@ -7,5 +7,4 @@ data class Couple(
     val startDate: LocalDate,
     val heartToken: Int = 5,
     val isDelete: Boolean = false,
-) {
-}
+)
