@@ -2,13 +2,12 @@ package universe.sparkle.infrastructure.persistence.entity
 
 import jakarta.persistence.DiscriminatorValue
 import jakarta.persistence.Entity
-import jakarta.persistence.PrimaryKeyJoinColumn
+import jakarta.persistence.Table
+import universe.sparkle.domain.GameType
 
 @Entity
-@DiscriminatorValue("ShortGame")
-@PrimaryKeyJoinColumn(name = "game_id")
+@Table(name = "short_game")
+@DiscriminatorValue(value = GameType.CONTRACT_SHORT)
 class ShortGameEntity(
     coupleId: Long,
-) : GameEntity(
-    coupleId = coupleId,
-)
+) : GameEntity(coupleId = coupleId)
