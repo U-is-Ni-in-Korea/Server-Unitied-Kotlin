@@ -3,6 +3,6 @@ plugins {
 }
 rootProject.name = 'sparkle'
 
-include("module-infrastructure")
+include("module-application")
 include("module-domain")
 include("module-usecase")
